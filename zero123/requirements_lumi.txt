@@ -2,6 +2,8 @@ albumentations==0.4.3
 pudb==2019.2
 imageio-ffmpeg==0.4.2
 pytorch-lightning==1.4.2
+torchmetrics==0.6.0
+torchtext==0.6.0
 omegaconf==2.1.1
 test-tube>=0.7.5
 streamlit>=0.73.1
@@ -17,3 +19,4 @@ rich>=13.3.2
 lovely-numpy>=0.2.8
 lovely-tensors>=0.1.14
 plotly==5.13.1
+wandb

@@ -288,6 +288,7 @@ class ObjaverseData(Dataset):
     def __init__(
         self,
         root_dir=".objaverse/hf-objaverse-v1/views",
+        paths_dir=".objaverse/hf-objaverse-v1/view",
         image_transforms=[],
         ext="png",
         default_trans=torch.zeros(3),
@@ -311,7 +312,7 @@ class ObjaverseData(Dataset):
         if not isinstance(ext, (tuple, list, ListConfig)):
             ext = [ext]
 
-        with open(os.path.join(root_dir, "valid_paths.json")) as f:
+        with open(os.path.join(paths_dir, "valid_paths.json")) as f:
             self.paths = json.load(f)
 
         total_objects = len(self.paths)
