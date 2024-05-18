@@ -204,6 +204,7 @@ class ObjaverseDataModuleFromConfig(pl.LightningDataModule):
     def __init__(
         self,
         root_dir,
+        paths_dir,
         batch_size,
         total_view,
         train=None,
@@ -214,6 +215,7 @@ class ObjaverseDataModuleFromConfig(pl.LightningDataModule):
     ):
         super().__init__(self)
         self.root_dir = root_dir
+        self.paths_dir = paths_dir
         self.batch_size = batch_size
         self.num_workers = num_workers
         self.total_view = total_view
@@ -240,6 +242,7 @@ class ObjaverseDataModuleFromConfig(pl.LightningDataModule):
     def train_dataloader(self):
         dataset = ObjaverseData(
             root_dir=self.root_dir,
+            paths_dir=self.paths_dir,
             total_view=self.total_view,
             validation=False,
             image_transforms=self.image_transforms,
@@ -257,6 +260,7 @@ class ObjaverseDataModuleFromConfig(pl.LightningDataModule):
     def val_dataloader(self):
         dataset = ObjaverseData(
             root_dir=self.root_dir,
+            paths_dir=self.paths_dir,
             total_view=self.total_view,
             validation=True,
             image_transforms=self.image_transforms,
@@ -274,6 +278,7 @@ class ObjaverseDataModuleFromConfig(pl.LightningDataModule):
         return wds.WebLoader(
             ObjaverseData(
                 root_dir=self.root_dir,
+                paths_dir=self.paths_dir,
                 total_view=self.total_view,
                 validation=self.validation,
             ),
