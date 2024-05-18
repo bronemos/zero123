@@ -22,7 +22,7 @@ from pytorch_lightning import seed_everything
 from pytorch_lightning.callbacks import Callback, LearningRateMonitor, ModelCheckpoint
 from pytorch_lightning.trainer import Trainer
 from pytorch_lightning.utilities import rank_zero_info
-from pytorch_lightning.utilities.distributed import rank_zero_only
+from pytorch_lightning.utilities.rank_zero import rank_zero_only
 from torch.utils.data import DataLoader, Dataset, Subset, random_split
 
 MULTINODE_HACKS = False
