@@ -1,1 +1,1 @@
-python main.py -t --base configs/sd-objaverse-finetune-c_concat-256-test.yaml --gpus 0, --scale_lr False --num_nodes 1 --seed 42 --check_val_every_n_epoch 10 --finetune_from /scratch/work/spieglb1/checkpoints/zero123/105000.ckpt
+python main.py -t --base configs/sd-objaverse-finetune-c_concat-256-test.yaml --gpus 0, --scale_lr False --num_nodes 1 --seed 42 --check_val_every_n_epoch 10 --finetune_from /scratch/project_462000478/spieglb/checkpoints/105000.ckpt
