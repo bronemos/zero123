@@ -25,7 +25,7 @@ from pytorch_lightning.utilities import rank_zero_info
 from pytorch_lightning.utilities.distributed import rank_zero_only
 from torch.utils.data import DataLoader, Dataset, Subset, random_split
 
-MULTINODE_HACKS = False
+MULTINODE_HACKS = True
 
 
 @rank_zero_only
@@ -768,6 +768,9 @@ if __name__ == "__main__":
         trainer_config = lightning_config.get("trainer", OmegaConf.create())
         # default to ddp
         trainer_config["accelerator"] = "ddp"
+        torch.distributed.init_process_group(
+            backend="nccl", timeout=datetime.timedelta(hours=1)
+        )
         for k in nondefault_trainer_args(opt):
             trainer_config[k] = getattr(opt, k)
         if not "gpus" in trainer_config:

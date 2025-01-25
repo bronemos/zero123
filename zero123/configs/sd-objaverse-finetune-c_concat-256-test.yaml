@@ -72,9 +72,9 @@ data:
   target: ldm.data.simple.ObjaverseDataModuleFromConfig
   params:
     root_dir: "/views_release"
-    paths_dir: "/project/project_462000478/spieglb/code/zero123/zero123"
-    batch_size: 2
-    num_workers: 16
+    paths_dir: "/scratch/project_462000478/spieglb/code/zero123/zero123"
+    batch_size: 12
+    num_workers: 32
     total_view: 12
     train:
       validation: False
@@ -91,7 +91,7 @@ lightning:
   metrics_over_trainsteps_checkpoint: True
   modelcheckpoint:
     params:
-      every_n_train_steps: 5000
+      every_n_train_steps: 500
   callbacks:
     image_logger:
       target: main.ImageLogger

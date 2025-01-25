@@ -380,7 +380,9 @@ class ObjaverseData(Dataset):
             img = plt.imread(path)
         except:
             print(path)
-            sys.exit()
+
+            raise FileNotFoundError
+            # sys.exit()
         img[img[:, :, -1] == 0.0] = color
         img = Image.fromarray(np.uint8(img[:, :, :3] * 255.0))
         return img
@@ -436,7 +438,7 @@ class ObjaverseData(Dataset):
         except:
             # very hacky solution, sorry about this
             filename = os.path.join(
-                self.root_dir, "692db5f2d3a04bb286cb977a7dba903e_1"
+                self.root_dir, "692db5f2d3a04bb286cb977a7dba903e"
             )  # this one we know is valid
             # target_im = torch.stack(
             #     [

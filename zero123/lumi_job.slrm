@@ -1,18 +1,22 @@
 #!/bin/bash
-#SBATCH --job-name=zero123_finetune
+#SBATCH --job-name="zero123_finetune"
 #SBATCH --account=project_462000478
-#SBATCH --time=48:00:00
-#SBATCH --nodes=1
+#SBATCH --partition=small-g
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=16
-#SBATCH --gpus-per-task=8
-#SBATCH --mem=64G
+#SBATCH --nodes=1
+#SBATCH --gpus-per-node=8
+#SBATCH --exclusive
+#SBATCH --mem=400G
+#SBATCH --time=60:00:00
+#SBATCH --mail-user=bernard.spiegl@aalto.fi
+#SBATCH --mail-type=FAIL,REQUEUE,TIME_LIMIT_80
+#SBATCH --output=/scratch/project_462000478/spieglb/code/zero123/zero123/logs/slurm-logs/slurm-%A_%a.out
 
 module use /appl/local/csc/modulefiles/
 module load pytorch
 
 export SING_FLAGS="--overlay /scratch/project_462000478/spieglb/datasets/objaverse/objaverse_0.sqfs --overlay /scratch/project_462000478/spieglb/datasets/objaverse/objaverse_1.sqfs --overlay /scratch/project_462000478/spieglb/datasets/objaverse/objaverse_2.sqfs --overlay /scratch/project_462000478/spieglb/datasets/objaverse/objaverse_3.sqfs --overlay /scratch/project_462000478/spieglb/datasets/objaverse/objaverse_4.sqfs --overlay /scratch/project_462000478/spieglb/datasets/objaverse/objaverse_5.sqfs --overlay /scratch/project_462000478/spieglb/datasets/objaverse/objaverse_6.sqfs --overlay /scratch/project_462000478/spieglb/datasets/objaverse/objaverse_7.sqfs --overlay /scratch/project_462000478/spieglb/datasets/objaverse/objaverse_8.sqfs --overlay /scratch/project_462000478/spieglb/datasets/objaverse/objaverse_9.sqfs -B /scratch/project_462000478 $SING_FLAGS"
 
-singularity_wrapper exec run_script.sh
+srun singularity_wrapper exec bash ./run_script.sh
 
 

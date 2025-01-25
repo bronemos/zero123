@@ -931,12 +931,16 @@ class LatentDiffusion(DDPM):
         x = super().get_input(batch, k)
         T = batch["T"].to(memory_format=torch.contiguous_format).float()
         cond_counts = batch["cond_count"]
-        T = torch.repeat_interleave(T, cond_counts, dim=0)
-        # print(T.shape)
+        # print(cond_counts)
+        # print(sum(cond_counts))
 
+        # print(bs)
         if bs is not None:
             x = x[:bs]
             T = T[:bs].to(self.device)
+            cond_counts = batch["cond_count"][:bs]
+
+        T = torch.repeat_interleave(T, cond_counts, dim=0)
 
         x = x.to(self.device)
         encoder_posterior = self.encode_first_stage(x)
@@ -945,7 +949,7 @@ class LatentDiffusion(DDPM):
         xc = super().get_input(batch, cond_key).to(self.device)
         # print("x xc", x.shape, xc.shape, sep=" ")
         if bs is not None:
-            xc = xc[:bs]
+            xc = xc[: sum(cond_counts)]
         cond = {}
 
         # To support classifier-free guidance, randomly drop out only text conditioning 5%, only image conditioning 5%, and both 5%.
